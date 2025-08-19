@@ -1,37 +1,32 @@
-# EspNow RCLink Transmitter
+# Delta Radio Control
 
-Designed for use in small short-range remote-controlled aircraft, vehicles and [ESP-FC](https://github.com/rtlopez/esp-fc) flight controller software.
+Este repositório contém o firmware para o rádio controle baseado no protocolo ESP-NOW, projetado para uso com aeronaves e veículos de controle remoto de curto alcance e o software de controle de voo DeltaFlight. 
 
-Simple implementation of external module with EspNow RcLink protocol. Just upload code to ESP32 module and connect to your transmitters JR bay.
+## Calibração do Controle
 
-Module accepts `PPM` signal on `GPIO13` and transmits 8 RC channels.
+Na primeira vez que o controle é ligado, será necessário realizar a calibração dos sticks. O processo funciona assim:  
 
-## Connection diagram
+1. Ao ligar o controle, será emitido **um beep**, mova todos os sticks para os **extremos** (quatro cantos).  
+2. Quando ouvir o **segundo beep**, posicione todos os sticks no **centro** (incluindo o stick de throttle).  
+3. Ao final da calibração, serão emitidos **dois beeps em sequência**, indicando que os valores foram salvos.  
 
-![EspNow RcLink connections](/docs/img/espnow_rclink_tx_bb.png)
+A calibração é armazenada automaticamente na memória flash do ESP32.  
 
-> [!NOTE]
-> Keep eye on power consumption, linear voltage regulator might get hot. Switching regulator (step-down) is recommended if voltage drop is high.
+- Se, ao ligar, a calibração for carregada com sucesso, o controle tocará a **melodia do Mario**, indicando que não é necessário calibrar novamente.  
 
-## Flashing
+## Compilação
 
-1. Download and unzip selected firmware from [Releases Page](https://github.com/rtlopez/espnow-rclink-tx/releases)
-2. Visit [ESP Tool Website](https://espressif.github.io/esptool-js/)
-3. Click "Connect" and choose device port in dialog
-4. Add firmware file and set Flash Address to `0x00`
-5. Click "Program"
-6. After success power cycle board
+1. Abra o VS Code.
+2. Abra o terminal do PlatformIO (na barra inferior do VS Code).
+3. Desconecte todos os controladores do computador, deixando conectado apenas aquele em que deseja enviar o código.
+4. Execute `pio run -e esp32 --target upload`
 
-![EspNow RcLink Flashing](/docs/img/esptool-js-flash-connect.png)
+## Parear com Delta-FC
 
-Your module is redy to use.
-
-## Using with ESP-FC
-
-To use [ESP-FC](https://github.com/rtlopez/esp-fc) as receiver just select `SPI Rx (e.g. built-in Rx)` as Receiver mode. Receiver provider doesn't matter here.
+Para usar [Delta-FC](https://github.com/Delta-Flight/DeltaFC) como receptor, selecione `SPI Rx (e.g. built-in Rx)` no campo "Receiver mode". O campo "Receiver provider" não faz diferença.
 
 ![ESP-FC receiver](/docs/img/espfc_receiver.png)
 
-Transmitter and receiver binds automatically after power up, you don't need to do anything. Recomended startup procedure is:
-  1. turn on transmitter first
-  2. next power up receiver/flight controller
+O transmissor e o receptor se conectam automaticamente após serem ligados, sem necessidade de nenhuma ação. O procedimento de inicialização recomendado é:
+1. Ligue primeiro o Rádio Controle (transmissor).
+2. Em seguida, ligue o DeltaFC (receptor).
