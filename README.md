@@ -30,3 +30,11 @@ Para usar [Delta-FC](https://github.com/Delta-Flight/DeltaFC) como receptor, sel
 O transmissor e o receptor se conectam automaticamente após serem ligados, sem necessidade de nenhuma ação. O procedimento de inicialização recomendado é:
 1. Ligue primeiro o Rádio Controle (transmissor).
 2. Em seguida, ligue o DeltaFC (receptor).
+
+## Configurações do receptor no DeltaFlight
+
+1. Mapa de Canais: `EATR1234`
+2. Limite Stick Baixo: `1020`
+3. Centro do Stick: `1510`
+4. Limite Stick Alto: `1900`
+5. Ponto Morto do RC: `10` a `20`
